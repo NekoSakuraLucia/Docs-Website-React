@@ -17,7 +17,10 @@ export default defineConfig({
     }
   },
   optimizeDeps: {
-    include: ['@mdx-js/react']
+    include: [
+      '@mdx-js/react',
+      'typewriter-effect'
+    ]
   },
   server: {
     port: 3000
