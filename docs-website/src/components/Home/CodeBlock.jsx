@@ -1,6 +1,7 @@
 import { Highlight, themes } from 'prism-react-renderer';
 import { isValidElement, useState } from 'react';
 import { HiClipboard, HiClipboardCheck } from 'react-icons/hi';
+import PropTypes from 'prop-types';
 
 const CodeBlock = ({ code, language = 'jsx' }) => {
     const [copied, setCopied] = useState(false);
@@ -78,7 +79,7 @@ const CodeBlock = ({ code, language = 'jsx' }) => {
                 code={codeString.trim()}
                 language={language}
             >
-                {({ className, style, tokens, getLineProps, getTokenProps }) => (
+                {({ tokens, getLineProps, getTokenProps }) => (
                     <div className="p-4">
                         <pre className="font-mono text-[14px] leading-relaxed">
                             {tokens.map((line, i) => (
@@ -99,6 +100,18 @@ const CodeBlock = ({ code, language = 'jsx' }) => {
             </Highlight>
         </div>
     );
+};
+
+CodeBlock.propTypes = {
+    code: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.element
+    ]).isRequired,
+    language: PropTypes.string
+};
+
+CodeBlock.defaultProps = {
+    language: 'jsx'
 };
 
 export default CodeBlock;
