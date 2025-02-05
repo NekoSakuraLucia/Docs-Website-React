@@ -1,12 +1,12 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
-import mdx from '@mdx-js/rollup'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
+import mdx from '@mdx-js/rollup';
 
 export default defineConfig({
   plugins: [
     {
       ...mdx({
-        providerImportSource: "@mdx-js/react"
+        providerImportSource: '@mdx-js/react'
       })
     },
     react()
@@ -24,5 +24,5 @@ export default defineConfig({
   },
   server: {
     port: 3000
-  }
-})
+  },
+});
