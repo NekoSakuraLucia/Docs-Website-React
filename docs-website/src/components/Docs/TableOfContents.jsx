@@ -19,7 +19,7 @@ const TableOfContents = () => {
       .map(element => {
         // สร้าง ID อัตโนมัติถ้ายังไม่มี
         if (!element.id) {
-          element.id = `heading-${Math.random().toString(36).substr(2, 9)}`;
+          element.id = `heading-${Math.random().toString(36).slice(2)}`;
         }
 
         return {
