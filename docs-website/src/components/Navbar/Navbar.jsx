@@ -1,22 +1,22 @@
-import { Link } from 'react-router'
-import { FiBook, FiGithub, FiMenu, FiMoon, FiSun } from 'react-icons/fi'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useState } from 'react'
+import { Link } from 'react-router';
+import { FiBook, FiGithub, FiMenu, FiMoon, FiSun } from 'react-icons/fi';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isDark, setIsDark] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDark, setIsDark] = useState(false);
 
   const toggleTheme = () => {
-    setIsDark(!isDark)
-    document.documentElement.classList.toggle('dark')
-  }
+    setIsDark(!isDark);
+    document.documentElement.classList.toggle('dark');
+  };
 
   return (
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ type: "spring", stiffness: 100, damping: 20 }}
+      transition={{ type: 'spring', stiffness: 100, damping: 20 }}
       className="fixed top-0 z-50 w-full backdrop-blur-md bg-white/70 dark:bg-gray-900/80 border-b border-gray-200/80 dark:border-gray-700/80"
     >
       <div className="container mx-auto px-4">
@@ -87,7 +87,7 @@ const Navbar = () => {
           {isMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
+              animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
               className="md:hidden overflow-hidden border-t border-gray-200 dark:border-gray-700"
@@ -154,7 +154,7 @@ const Navbar = () => {
         </AnimatePresence>
       </div>
     </motion.nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
