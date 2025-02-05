@@ -1,8 +1,8 @@
-import { BrowserRouter, Routes, Route } from 'react-router'
-import NextTopLoader from 'nextjs-toploader'
-import Layout from './components/Layout'
-import DocsPage from './pages/DocsPage'
-import HomePage from './pages/HomePage'
+import { BrowserRouter, Routes, Route } from 'react-router';
+import NextTopLoader from 'nextjs-toploader';
+import Layout from './components/Layout';
+import DocsPage from './pages/DocsPage';
+import HomePage from './pages/HomePage';
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
