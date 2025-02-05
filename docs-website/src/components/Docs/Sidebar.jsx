@@ -1,6 +1,6 @@
 import { useLocation, NavLink } from 'react-router';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiBook, FiPackage, FiMenu, FiX, FiSearch } from 'react-icons/fi';
+import { FiBook, FiPackage, FiCode, FiMenu, FiX, FiSearch, FiBox, FiCoffee, FiGift, FiSettings } from 'react-icons/fi';
 import { useState } from 'react';
 
 const menuItems = [
@@ -8,7 +8,8 @@ const menuItems = [
     title: 'เริ่มต้นใช้งาน',
     items: [
       { name: 'แนะนำ', path: '/docs', icon: <FiBook /> },
-      { name: 'การติดตั้ง', path: '/docs/installation', icon: <FiPackage /> }
+      { name: 'การติดตั้ง', path: '/docs/installation', icon: <FiPackage /> },
+      { name: 'การใช้งานพื้นฐาน', path: '/docs/basic-usage', icon: <FiCode /> },
     ]
   },
 ];
