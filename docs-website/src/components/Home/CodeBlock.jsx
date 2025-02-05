@@ -110,8 +110,4 @@ CodeBlock.propTypes = {
     language: PropTypes.string
 };
 
-CodeBlock.defaultProps = {
-    language: 'jsx'
-};
-
 export default CodeBlock;
