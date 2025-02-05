@@ -108,7 +108,7 @@ const TableOfContents = () => {
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
-      className="hidden xl:block w-64"
+      className="w-full"
     >
       {/* Progress bar */}
       <motion.div 
@@ -116,7 +116,7 @@ const TableOfContents = () => {
         className="fixed top-16 right-0 left-0 h-[2px] bg-blue-500 origin-left z-50"
       />
 
-      <div className="fixed space-y-2 p-4 rounded-xl backdrop-blur-md bg-white/50 dark:bg-gray-900/50 border border-gray-200/50 dark:border-gray-700/50">
+      <div className="space-y-2 p-4 rounded-xl backdrop-blur-md bg-white/50 dark:bg-gray-900/50 border border-gray-200/50 dark:border-gray-700/50">
         <motion.h4
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

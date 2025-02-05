@@ -44,7 +44,7 @@ function DocsPage() {
         
         {/* ปรับ main content ให้มี max-width และ padding ที่เหมาะสม */}
         <main className="flex-1 w-full">
-          <div className="mx-auto px-4 lg:px-8 py-8 lg:pl-[280px] xl:pr-[280px]">
+          <div className="mx-auto px-4 lg:px-8 py-8 lg:pl-[280px] xl:pr-[240px]">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -69,8 +69,8 @@ function DocsPage() {
         </main>
 
         {/* ปรับตำแหน่ง TableOfContents */}
-        <div className="hidden xl:block w-[280px]">
-          <div className="fixed top-[4.5rem] right-0 w-[280px] pr-8">
+        <div className="hidden xl:block w-[240px]">
+          <div className="fixed top-[4.5rem] right-4 w-[240px]">
             <TableOfContents />
           </div>
         </div>
