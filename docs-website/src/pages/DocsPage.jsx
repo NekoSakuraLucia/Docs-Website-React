@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Docs/Sidebar';
 import { motion } from 'framer-motion';
 import mdxComponents from '../components/Docs/MDXComponents';
+import TableOfContents from '../components/Docs/TableOfContents';
 
 function DocsPage() {
   const { slug } = useParams();
@@ -38,30 +39,41 @@ function DocsPage() {
       </div>
 
       {/* ส่วนแสดงเนื้อหา */}
-      <div className="flex">
+      <div className="flex relative">
         <Sidebar />
-        <motion.main 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="w-full lg:pl-[280px] p-4 lg:p-8"
-        >
-          <div className="max-w-3xl mx-auto">
-            <div className="backdrop-blur-sm bg-white/40 dark:bg-gray-900/40 p-8 rounded-2xl border border-white/30 dark:border-gray-700/30 shadow-xl">
-              <article className="prose prose-lg dark:prose-invert max-w-none">
-                <React.Suspense fallback={
-                  <div className="animate-pulse space-y-4">
-                    <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
-                  </div>
-                }>
-                  {MDXComponent && <MDXComponent components={mdxComponents} />}
-                </React.Suspense>
-              </article>
-            </div>
+        
+        {/* ปรับ main content ให้มี max-width และ padding ที่เหมาะสม */}
+        <main className="flex-1 w-full">
+          <div className="mx-auto px-4 lg:px-8 py-8 lg:pl-[280px] xl:pr-[280px]">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="max-w-4xl mx-auto"
+            >
+              <div className="backdrop-blur-sm bg-white/40 dark:bg-gray-900/40 p-6 lg:p-8 rounded-2xl border border-white/30 dark:border-gray-700/30 shadow-xl">
+                <article className="prose prose-lg dark:prose-invert prose-img:rounded-xl prose-headings:scroll-mt-20 max-w-none">
+                  <React.Suspense fallback={
+                    <div className="animate-pulse space-y-4">
+                      <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
+                      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
+                    </div>
+                  }>
+                    {MDXComponent && <MDXComponent components={mdxComponents} />}
+                  </React.Suspense>
+                </article>
+              </div>
+            </motion.div>
           </div>
-        </motion.main>
+        </main>
+
+        {/* ปรับตำแหน่ง TableOfContents */}
+        <div className="hidden xl:block w-[280px]">
+          <div className="fixed top-[4.5rem] right-0 w-[280px] pr-8">
+            <TableOfContents />
+          </div>
+        </div>
       </div>
     </div>
   );
