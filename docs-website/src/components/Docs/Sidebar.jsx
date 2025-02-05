@@ -1,6 +1,6 @@
 import { useLocation, NavLink } from 'react-router';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiBook, FiPackage, FiCode, FiMenu, FiX, FiSearch } from 'react-icons/fi';
+import { FiBook, FiPackage, FiMenu, FiX, FiSearch } from 'react-icons/fi';
 import { useState } from 'react';
 
 const menuItems = [
@@ -8,8 +8,7 @@ const menuItems = [
     title: 'เริ่มต้นใช้งาน',
     items: [
       { name: 'แนะนำ', path: '/docs', icon: <FiBook /> },
-      { name: 'การติดตั้ง', path: '/docs/installation', icon: <FiPackage /> },
-      { name: 'การใช้งานพื้นฐาน', path: '/docs/basic-usage', icon: <FiCode /> },
+      { name: 'การติดตั้ง', path: '/docs/installation', icon: <FiPackage /> }
     ]
   },
 ];
@@ -29,10 +28,10 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* ปุ่มเปิด-ปิดเมนูที่ดูดีขึ้น */}
+      {/* ปรับขนาดและตำแหน่งปุ่มเมนู */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed lg:hidden top-4 left-4 z-50 p-3 rounded-xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border border-gray-200/50 dark:border-gray-700/50 shadow-lg shadow-black/5"
+        className="fixed lg:hidden top-3 left-3 z-50 p-2 rounded-lg bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border border-gray-200/50 dark:border-gray-700/50 shadow-lg shadow-black/5"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         animate={{ 
@@ -45,7 +44,7 @@ const Sidebar = () => {
           animate={{ rotate: isOpen ? 45 : 0 }}
           transition={{ duration: 0.2 }}
         >
-          {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+          {isOpen ? <FiX size={20} /> : <FiMenu size={20} />}
         </motion.div>
       </motion.button>
 
@@ -96,7 +95,7 @@ const Sidebar = () => {
         </div>
       </div>
 
-      {/* แถบด้านข้างบนมือถือพร้อม AnimatePresence */}
+      {/* ปรับแต่ง Mobile Sidebar */}
       <AnimatePresence>
         {isOpen && (
           <>
@@ -115,47 +114,48 @@ const Sidebar = () => {
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -280, opacity: 0 }}
               transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-              className="lg:hidden fixed top-16 left-0 w-[280px] h-[calc(100vh-4rem)] overflow-y-auto z-40 backdrop-blur-md bg-white/90 dark:bg-gray-900/90 border-r border-gray-200/50 dark:border-gray-700/50 p-4 shadow-xl"
+              className="lg:hidden fixed top-16 left-0 w-[260px] h-[calc(100vh-4rem)] overflow-y-auto z-40 backdrop-blur-md bg-white/95 dark:bg-gray-900/95 border-r border-gray-200/50 dark:border-gray-700/50 shadow-xl"
             >
-              {/* ตัวค้นหามือถือภายในแถบด้านข้าง */}
-              <div className="relative mb-6">
-                <FiSearch className="absolute left-3 top-3 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="ค้นหาเอกสาร..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-md border border-gray-200/50 dark:border-gray-700/50 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-black dark:text-white"
-                />
+              {/* ส่วนหัวของเมนูมือถือ */}
+              <div className="sticky top-0 bg-white/50 dark:bg-gray-900/50 backdrop-blur-md p-4 border-b border-gray-200/50 dark:border-gray-700/50">
+                <div className="relative">
+                  <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="ค้นหาเอกสาร..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-9 pr-4 py-1.5 text-sm bg-white/50 dark:bg-gray-800/50 backdrop-blur-md border border-gray-200/50 dark:border-gray-700/50 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500/50 text-black dark:text-white"
+                  />
+                </div>
               </div>
 
-              <div className="space-y-8">
+              {/* เนื้อหาเมนู */}
+              <div className="p-3 space-y-6">
                 {filteredMenuItems.map((section, idx) => (
-                  <div key={idx} className="space-y-4">
-                    <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">
+                  <div key={idx} className="space-y-2">
+                    <h3 className="text-xs font-semibold text-gray-900 dark:text-white uppercase tracking-wider px-2">
                       {section.title}
                     </h3>
-                    <div className="space-y-1">
-                      {section.items.map((item, itemIdx) => {
-                        const isActive = location.pathname === item.path;
-                        return (
-                          <div key={itemIdx}>
-                            <NavLink
-                              to={item.path}
-                              end
-                              onClick={() => setIsOpen(false)}
-                              className={`flex items-center gap-2 px-4 py-2 text-sm rounded-lg transition-all duration-200 ${
-                                isActive
-                                  ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400'
-                                  : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100/50 dark:hover:bg-gray-800/50'
-                              }`}
-                            >
-                              <span className="w-5 h-5">{item.icon}</span>
-                              {item.name}
-                            </NavLink>
-                          </div>
-                        );
-                      })}
+                    <div className="space-y-0.5">
+                      {section.items.map((item, itemIdx) => (
+                        <NavLink
+                          key={itemIdx}
+                          to={item.path}
+                          end
+                          onClick={() => setIsOpen(false)}
+                          className={({ isActive }) => `
+                            flex items-center gap-2 px-2 py-1.5 text-sm rounded-lg transition-all duration-200
+                            ${isActive 
+                              ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400 font-medium' 
+                              : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100/50 dark:hover:bg-gray-800/50'
+                            }
+                          `}
+                        >
+                          <span className="w-4 h-4">{item.icon}</span>
+                          {item.name}
+                        </NavLink>
+                      ))}
                     </div>
                   </div>
                 ))}
