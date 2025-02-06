@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX, FiCopy } from 'react-icons/fi';
+import PropTypes from 'prop-types';
 
 const Notification = ({ message, isSuccess = true, onClose, isVisible }) => {
   return (
@@ -55,6 +56,13 @@ const Notification = ({ message, isSuccess = true, onClose, isVisible }) => {
       )}
     </AnimatePresence>
   );
+};
+
+Notification.propTypes = {
+  message: PropTypes.string.isRequired,
+  isSuccess: PropTypes.bool,
+  onClose: PropTypes.func.isRequired,
+  isVisible: PropTypes.bool.isRequired,
 };
 
 export default Notification;
