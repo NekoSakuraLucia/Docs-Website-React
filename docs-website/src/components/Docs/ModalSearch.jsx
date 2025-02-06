@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiSearch, FiArrowRight } from 'react-icons/fi';
 import { useNavigate } from 'react-router';
 import { menuItems } from '../../data/menuItems';
+import PropTypes from 'prop-types';
 
 const ModalSearch = ({ isOpen, onClose }) => {
     const [query, setQuery] = useState('');
@@ -39,7 +40,7 @@ const ModalSearch = ({ isOpen, onClose }) => {
         const handleKeyDown = (e) => {
             if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
                 e.preventDefault();
-                isOpen ? onClose() : onOpen();
+                onClose();
             }
             if (e.key === 'Escape') {
                 onClose();
@@ -48,7 +49,7 @@ const ModalSearch = ({ isOpen, onClose }) => {
 
         document.addEventListener('keydown', handleKeyDown);
         return () => document.removeEventListener('keydown', handleKeyDown);
-    }, [isOpen, onClose]);
+    }, [onClose]);
 
     useEffect(() => {
         handleSearch(query);
@@ -117,7 +118,7 @@ const ModalSearch = ({ isOpen, onClose }) => {
                                     </div>
                                 ) : query ? (
                                     <div className="p-4 text-center text-gray-500 dark:text-gray-400">
-                                        ไม่พบผลลัพธ์สำหรับ "{query}"
+                                        ไม่พบผลลัพธ์สำหรับ &quot;{query}&quot;
                                     </div>
                                 ) : null}
                             </div>
@@ -139,6 +140,11 @@ const ModalSearch = ({ isOpen, onClose }) => {
             )}
         </AnimatePresence>
     );
+};
+
+ModalSearch.propTypes = {
+    isOpen: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired
 };
 
 export default ModalSearch;
