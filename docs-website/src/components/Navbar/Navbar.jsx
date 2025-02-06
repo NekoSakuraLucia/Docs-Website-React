@@ -2,15 +2,11 @@ import { Link } from 'react-router';
 import { FiBook, FiGithub, FiMenu, FiMoon, FiSun } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import { useTheme } from '../../contexts/Theme/useTheme';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
-
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    document.documentElement.classList.toggle('dark');
-  };
+  const { darkMode, toggleTheme } = useTheme();
 
   return (
     <motion.nav
@@ -24,7 +20,7 @@ const Navbar = () => {
           {/* โลโก้พร้อมภาพ hover แอนิเมชั่น */}
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link to="/" className="flex items-center space-x-3 text-lg font-semibold">
-              <motion.span 
+              <motion.span
                 className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600"
               >
                 Your Docs
@@ -35,8 +31,8 @@ const Navbar = () => {
           {/* เมนูเดสก์ท็อป */}
           <div className="hidden md:flex items-center space-x-6">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link 
-                to="/docs" 
+              <Link
+                to="/docs"
                 className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 <FiBook />
@@ -45,7 +41,7 @@ const Navbar = () => {
             </motion.div>
 
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <a 
+              <a
                 href="https://github.com/NekoSakuraLucia/Docs-Website-React"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -64,10 +60,10 @@ const Navbar = () => {
             >
               <motion.div
                 initial={{ rotate: 0 }}
-                animate={{ rotate: isDark ? 360 : 0 }}
+                animate={{ rotate: darkMode ? 360 : 0 }}
                 transition={{ duration: 0.5 }}
               >
-                {isDark ? <FiSun className="w-5 h-5" /> : <FiMoon className="w-5 h-5" />}
+                {darkMode ? <FiSun className="w-5 h-5" /> : <FiMoon className="w-5 h-5" />}
               </motion.div>
             </motion.button>
           </div>
@@ -92,7 +88,7 @@ const Navbar = () => {
               transition={{ duration: 0.3 }}
               className="md:hidden overflow-hidden border-t border-gray-200 dark:border-gray-700"
             >
-              <motion.div 
+              <motion.div
                 className="flex flex-col space-y-4 py-4"
                 variants={{
                   open: { transition: { staggerChildren: 0.1 } },
@@ -108,8 +104,8 @@ const Navbar = () => {
                     closed: { x: 20, opacity: 0 }
                   }}
                 >
-                  <Link 
-                    to="/docs" 
+                  <Link
+                    to="/docs"
                     className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                   >
                     <FiBook />
@@ -123,7 +119,7 @@ const Navbar = () => {
                     closed: { x: 20, opacity: 0 }
                   }}
                 >
-                  <a 
+                  <a
                     href="https://github.com/NekoSakuraLucia/Docs-Website-React"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -144,8 +140,8 @@ const Navbar = () => {
                     onClick={toggleTheme}
                     className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                   >
-                    {isDark ? <FiSun className="w-5 h-5" /> : <FiMoon className="w-5 h-5" />}
-                    <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
+                    {darkMode ? <FiSun className="w-5 h-5" /> : <FiMoon className="w-5 h-5" />}
+                    <span>{darkMode ? 'Light Mode' : 'Dark Mode'}</span>
                   </button>
                 </motion.div>
               </motion.div>
