@@ -2,6 +2,7 @@ import { useLocation, NavLink } from 'react-router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiBook, FiPackage, FiCode, FiMenu, FiX, FiSearch } from 'react-icons/fi';
 import { useState } from 'react';
+import ModalSearch from './ModalSearch';
 
 const menuItems = [
   {
@@ -18,6 +19,7 @@ const Sidebar = () => {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   // กรองรายการเมนูตาม search query
   const filteredMenuItems = menuItems.map(section => ({
@@ -29,6 +31,12 @@ const Sidebar = () => {
 
   return (
     <>
+      {/* ตัวค้นหา Modal */}
+      <ModalSearch 
+        isOpen={isSearchOpen} 
+        onClose={() => setIsSearchOpen(false)} 
+      />
+
       {/* ปรับขนาดและตำแหน่งปุ่มเมนู */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
@@ -56,10 +64,10 @@ const Sidebar = () => {
           <FiSearch className="absolute left-3 top-3 text-gray-400" />
           <input
             type="text"
-            placeholder="ค้นหาเอกสาร..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full text-black dark:text-white pl-10 pr-4 py-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-md border border-gray-200/50 dark:border-gray-700/50 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+            placeholder="ค้นหาเอกสาร... (⌘ + K)"
+            readOnly
+            onClick={() => setIsSearchOpen(true)}
+            className="w-full text-black dark:text-white pl-10 pr-4 py-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-md border border-gray-200/50 dark:border-gray-700/50 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/70 transition-colors"
           />
         </div>
 
