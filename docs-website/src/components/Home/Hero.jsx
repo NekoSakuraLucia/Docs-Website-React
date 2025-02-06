@@ -20,7 +20,6 @@ const TypedCodeBlock = () => {
                                 .pauseFor(500)
                                 .typeString('  "Template เว็บไซต์ Docs แจกฟรี สำหรับสร้างเอกสารอย่างสวยงาม",\n')
                                 .pauseFor(500)
-                                .typeString('  "สร้างโดย Cxllme Neko (NekoSakuraLucia) ด้วย React และ Tailwind CSS"\n')
                                 .typeString('];\n\n')
                                 .typeString('console.log(messages);')
                                 .start();
