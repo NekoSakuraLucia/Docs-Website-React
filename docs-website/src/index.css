@@ -33,3 +33,16 @@
   background-size: 200% auto;
   animation: gradient 8s linear infinite;
 }
+
+/* CodeBlock แสดงรูปแบบ 3D */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.translate-z-8 {
+  transform: translateZ(8px);
+}
+
+.translate-z-12 {
+  transform: translateZ(12px);
+}

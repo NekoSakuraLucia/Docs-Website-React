@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import CodeBlock from './CodeBlock';
 import Typewriter from 'typewriter-effect';
+import { useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useRef, useEffect } from 'react';
 
 const TypedCodeBlock = () => {
     return (
@@ -33,6 +35,36 @@ const TypedCodeBlock = () => {
 };
 
 const Hero = () => {
+    // เพิ่ม mouse tracking สำหรับ 3D effect
+    const containerRef = useRef(null);
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
+
+    const damping = 50;
+    const springX = useSpring(mouseX, { damping });
+    const springY = useSpring(mouseY, { damping });
+
+    // Transform values for rotation และ perspective
+    const rotateX = useTransform(springY, [-0.5, 0.5], [15, -15]);
+    const rotateY = useTransform(springX, [-0.5, 0.5], [-15, 15]);
+
+    useEffect(() => {
+        const handleMouseMove = (e) => {
+            const rect = containerRef.current?.getBoundingClientRect();
+            if (rect) {
+                const centerX = rect.x + rect.width / 2;
+                const centerY = rect.y + rect.height / 2;
+
+                // Calculate normalized mouse position (-0.5 to 0.5)
+                mouseX.set((e.clientX - centerX) / rect.width);
+                mouseY.set((e.clientY - centerY) / rect.height);
+            }
+        };
+
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => window.removeEventListener('mousemove', handleMouseMove);
+    }, [mouseX, mouseY]);
+
     return (
         <div className="relative min-h-screen flex items-center">
             {/* พื้นหลังที่มีการไล่ระดับสีและเบลอ */}
@@ -120,14 +152,37 @@ const Hero = () => {
                         </div>
                     </motion.div>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3, duration: 0.8 }}
-                        className="backdrop-blur-sm bg-white/5 dark:bg-gray-900/5 p-3 rounded-2xl border border-white/30 dark:border-gray-700/30 shadow-xl"
-                    >
-                        <TypedCodeBlock />
-                    </motion.div>
+                    <div ref={containerRef} className="perspective-1000">
+                        <motion.div
+                            style={{
+                                rotateX,
+                                rotateY,
+                                transformStyle: "preserve-3d",
+                            }}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3, duration: 0.8 }}
+                            className="relative"
+                        >
+                            {/* เอฟเฟกต์เรืองแสง */}
+                            <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity" />
+                            
+                            {/* เนื้อหาหลัก 2 */}
+                            <div className="relative backdrop-blur-sm bg-white/5 dark:bg-gray-900/5 p-3 rounded-2xl border border-white/30 dark:border-gray-700/30 shadow-2xl">
+                                {/* องค์ประกอบลอยตัว 3 มิติ */}
+                                <div className="absolute -left-4 -top-4 w-8 h-8 bg-blue-500/10 rounded-lg transform rotate-12 translate-z-12" style={{ transform: 'translateZ(40px)' }} />
+                                <div className="absolute -right-6 -bottom-6 w-12 h-12 bg-purple-500/10 rounded-lg transform -rotate-12 translate-z-8" style={{ transform: 'translateZ(60px)' }} />
+                                
+                                {/* เนื้อหาภายในโค้ด */}
+                                <motion.div
+                                    style={{ transform: 'translateZ(30px)' }}
+                                    className="relative z-10"
+                                >
+                                    <TypedCodeBlock />
+                                </motion.div>
+                            </div>
+                        </motion.div>
+                    </div>
                 </div>
             </div>
         </div>
