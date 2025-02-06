@@ -99,6 +99,15 @@ const mdxComponents = {
     </p>
   ),
 
+  strong: ({ children, ...props }) => (
+    <strong 
+      className="font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent" 
+      {...props}
+    >
+      {children}
+    </strong>
+  ),
+
   hr: () => (
     <div className="my-8">
       <div className="h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent" />
