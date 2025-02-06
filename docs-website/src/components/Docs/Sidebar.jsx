@@ -1,19 +1,9 @@
 import { useLocation, NavLink } from 'react-router';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiBook, FiPackage, FiCode, FiMenu, FiX, FiSearch } from 'react-icons/fi';
+import { FiMenu, FiX, FiSearch } from 'react-icons/fi';
 import { useState } from 'react';
 import ModalSearch from './ModalSearch';
-
-const menuItems = [
-  {
-    title: 'เริ่มต้นใช้งาน',
-    items: [
-      { name: 'แนะนำ', path: '/docs', icon: <FiBook /> },
-      { name: 'การติดตั้ง', path: '/docs/installation', icon: <FiPackage /> },
-      { name: 'การใช้งานพื้นฐาน', path: '/docs/basic-usage', icon: <FiCode /> },
-    ]
-  },
-];
+import { menuItems } from '../../data/menuItems';
 
 const Sidebar = () => {
   const location = useLocation();
