@@ -49,37 +49,74 @@ const Hero = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
-                        className="text-left backdrop-blur-sm bg-white/30 dark:bg-gray-900/30 p-8 rounded-2xl border border-white/30 dark:border-gray-700/30 shadow-xl"
+                        className="relative text-left p-8 rounded-2xl group"
                     >
-                        <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 [text-wrap:balance]">
-                            ยินดีต้อนรับ สู่{' '}
-                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
-                                Your Docs
-                            </span>
-                        </h1>
-                        <p className="text-xl text-gray-700 dark:text-gray-300 mb-8 [text-wrap:balance]">
-                            คำแนะนำที่ครอบคลุมของคุณในการสร้างซอฟต์แวร์ที่น่าทึ่ง เรียบง่าย ทรงพลัง และจัดทำเป็นเอกสารอย่างสวยงาม
-                        </p>
+                        {/* Gradient border effect */}
+                        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 blur-2xl group-hover:blur-xl transition-all duration-500" />
 
-                        <div className="flex flex-wrap gap-4">
-                            <motion.a
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                href="/docs"
-                                className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:opacity-90 transition-all duration-300 shadow-lg shadow-blue-500/25"
+                        {/* Glass background */}
+                        <div className="absolute inset-0 rounded-2xl backdrop-blur-md bg-white/30 dark:bg-gray-900/30 border border-white/30 dark:border-gray-700/30" />
+
+                        {/* เนื้อหาภายใน */}
+                        <div className="relative">
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.2, duration: 0.8 }}
                             >
-                                ลองใช้งานตอนนี้
-                            </motion.a>
-                            <motion.a
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                href="https://github.com/NekoSakuraLucia/Docs-Website-React"
-                                rel="noopener noreferrer"
-                                target='_blank'
-                                className="px-8 py-3 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm text-gray-900 dark:text-white rounded-lg font-medium hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-300 shadow-lg"
+                                <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 [text-wrap:balance] tracking-tight">
+                                    ยินดีต้อนรับ สู่{' '}
+                                    <span className="inline-block">
+                                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 animate-gradient">
+                                            Your Docs
+                                        </span>
+                                        <motion.div
+                                            className="h-1 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 rounded-full mt-1"
+                                            initial={{ scaleX: 0 }}
+                                            animate={{ scaleX: 1 }}
+                                            transition={{ delay: 0.5, duration: 0.8 }}
+                                        />
+                                    </span>
+                                </h1>
+                            </motion.div>
+
+                            <motion.p
+                                className="text-xl text-gray-700 dark:text-gray-300 mb-8 [text-wrap:balance] leading-relaxed"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.4, duration: 0.8 }}
                             >
-                                ดูโค้ดบน GitHub
-                            </motion.a>
+                                คำแนะนำที่ครอบคลุมของคุณในการสร้างซอฟต์แวร์ที่น่าทึ่ง เรียบง่าย ทรงพลัง และจัดทำเป็นเอกสารอย่างสวยงาม
+                            </motion.p>
+
+                            <motion.div
+                                className="flex flex-wrap gap-4"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.6, duration: 0.8 }}
+                            >
+                                <motion.a
+                                    whileHover={{ scale: 1.05, translateY: -2 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    href="/docs"
+                                    className="relative group px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium transition-all duration-300"
+                                >
+                                    <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 blur-lg opacity-0 group-hover:opacity-50 transition-opacity" />
+                                    <span className="relative">ลองใช้งานตอนนี้</span>
+                                </motion.a>
+
+                                <motion.a
+                                    whileHover={{ scale: 1.05, translateY: -2 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    href="https://github.com/NekoSakuraLucia/Docs-Website-React"
+                                    rel="noopener noreferrer"
+                                    target='_blank'
+                                    className="relative group px-8 py-3 rounded-xl font-medium transition-all duration-300"
+                                >
+                                    <span className="absolute inset-0 rounded-xl bg-white dark:bg-gray-800 opacity-50 group-hover:opacity-70 backdrop-blur-sm transition-opacity" />
+                                    <span className="relative text-gray-900 dark:text-white">ดูโค้ดบน GitHub</span>
+                                </motion.a>
+                            </motion.div>
                         </div>
                     </motion.div>
 
