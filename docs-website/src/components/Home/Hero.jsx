@@ -157,7 +157,7 @@ const Hero = () => {
                             style={{
                                 rotateX,
                                 rotateY,
-                                transformStyle: "preserve-3d",
+                                transformStyle: 'preserve-3d',
                             }}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
