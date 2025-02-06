@@ -3,7 +3,7 @@ import NextTopLoader from 'nextjs-toploader';
 import Layout from './components/Layout';
 import DocsPage from './pages/DocsPage';
 import HomePage from './pages/HomePage';
-import { NotificationProvider } from './contexts/NotificationContext';
+import { NotificationProvider } from './contexts/NotificationProvider';
 
 function App() {
   return (

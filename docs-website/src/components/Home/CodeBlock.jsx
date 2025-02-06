@@ -2,7 +2,7 @@ import { Highlight, themes } from 'prism-react-renderer';
 import { isValidElement, useState } from 'react';
 import { HiClipboard, HiClipboardCheck } from 'react-icons/hi';
 import PropTypes from 'prop-types';
-import { useNotification } from '../../contexts/NotificationContext';
+import { useNotification } from '../../contexts/useNotification';
 
 const CodeBlock = ({ code, language = 'jsx' }) => {
     const [copied, setCopied] = useState(false);

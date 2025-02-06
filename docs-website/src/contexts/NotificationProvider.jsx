@@ -1,7 +1,7 @@
-import { createContext, useContext, useState } from 'react';
+import { useState } from 'react';
 import Notification from '../components/Common/Notification';
-
-const NotificationContext = createContext();
+import { NotificationContext } from './NotificationContext';
+import PropTypes from 'prop-types';
 
 export const NotificationProvider = ({ children }) => {
   const [notification, setNotification] = useState({
@@ -28,10 +28,6 @@ export const NotificationProvider = ({ children }) => {
   );
 };
 
-export const useNotification = () => {
-  const context = useContext(NotificationContext);
-  if (!context) {
-    throw new Error('ต้องใช้ useNotification ภายใน NotificationProvider');
-  }
-  return context;
+NotificationProvider.propTypes = {
+  children: PropTypes.node.isRequired
 };
