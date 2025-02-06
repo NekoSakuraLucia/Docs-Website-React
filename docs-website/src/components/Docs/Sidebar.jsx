@@ -1,6 +1,6 @@
 import { useLocation, NavLink } from 'react-router';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiBook, FiPackage, FiCode, FiMenu, FiX, FiSearch, FiBox, FiCoffee, FiGift, FiSettings } from 'react-icons/fi';
+import { FiBook, FiPackage, FiCode, FiMenu, FiX, FiSearch } from 'react-icons/fi';
 import { useState } from 'react';
 
 const menuItems = [
