@@ -5,19 +5,15 @@ const TableOfContents = () => {
   const [headings, setHeadings] = useState([]);
   const [activeId, setActiveId] = useState('');
   const { scrollYProgress } = useScroll();
-  // ใช้ spring animation สำหรับ progress bar
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
-  // จัดเก็บ logic การดึงหัวข้อไว้ใน memoized callback
   const getHeadings = useCallback(() => {
     const article = document.querySelector('article');
     if (!article) return [];
 
-    // ดึงเฉพาะ h1, h2, h3 และกรองหัวข้อที่ว่างออก
     return Array.from(article.querySelectorAll('h1, h2, h3'))
       .filter(element => element.textContent.trim() !== '')
       .map(element => {
-        // สร้าง ID อัตโนมัติถ้ายังไม่มี
         if (!element.id) {
           element.id = `heading-${Math.random().toString(36).slice(2)}`;
         }
@@ -30,19 +26,16 @@ const TableOfContents = () => {
       });
   }, []);
 
-  // ติดตั้ง observers และจัดการการเปลี่ยนแปลงของ DOM
   useEffect(() => {
     const updateHeadings = () => setHeadings(getHeadings());
     updateHeadings();
 
-    // สร้าง MutationObserver เพื่อติดตามการเปลี่ยนแปลงของ DOM
     const observer = new MutationObserver(updateHeadings);
     observer.observe(document.body, { 
       childList: true, 
       subtree: true 
     });
 
-    // สร้าง IntersectionObserver เพื่อติดตามหัวข้อที่กำลังแสดงอยู่
     const intersectionObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
@@ -57,19 +50,16 @@ const TableOfContents = () => {
       }
     );
 
-    // เริ่มติดตามหัวข้อทั้งหมด
     document.querySelectorAll('h1, h2, h3').forEach(elem => 
       intersectionObserver.observe(elem)
     );
 
-    // ทำความสะอาด observers เมื่อ component ถูกทำลาย
     return () => {
       observer.disconnect();
       intersectionObserver.disconnect();
     };
   }, [getHeadings]);
 
-  // กำหนด animation variants ด้วย useMemo
   const variants = useMemo(() => ({
     container: {
       hidden: { opacity: 0 },
@@ -84,15 +74,14 @@ const TableOfContents = () => {
     }
   }), []);
 
-  // จัดการการเลื่อนไปยังหัวข้อที่เลือกพร้อม offset
   const handleScrollToHeading = useCallback((e, id) => {
     e.preventDefault();
     const element = document.getElementById(id);
     if (!element) return;
 
-    const offset = 100; // ระยะห่างจากด้านบน
+    const offset = 100;
     const elementPosition = element.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - offset;
+    const offsetPosition = elementPosition + window.scrollY - offset;
 
     window.scrollTo({
       top: offsetPosition,
@@ -108,7 +97,7 @@ const TableOfContents = () => {
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
-      className="w-full"
+      className="hidden xl:block w-full"
     >
       {/* Progress bar */}
       <motion.div 
