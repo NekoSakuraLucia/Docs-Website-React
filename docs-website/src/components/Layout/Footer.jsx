@@ -1,8 +1,22 @@
 import { FiHeart, FiExternalLink } from 'react-icons/fi';
 import { motion } from 'framer-motion';
+import { NavLink } from 'react-router';
+import '../../styles/glowing-corner.css';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+
+  const handleMouseMove = (e, buttonElement) => {
+    if (!buttonElement) return;
+    const rect = buttonElement.getBoundingClientRect();
+    const lightElement = buttonElement.querySelector('.light-effect');
+    if (lightElement) {
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      lightElement.style.left = `${x}px`;
+      lightElement.style.top = `${y}px`;
+    }
+  };
 
   return (
     <footer className="relative mt-auto overflow-hidden">
@@ -39,12 +53,14 @@ const Footer = () => {
                   href="#"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-6 py-2 rounded-full border border-gray-200/50 dark:border-gray-800/50 
+                  className={`px-6 py-2 rounded-full border border-gray-200/50 dark:border-gray-800/50 
                   hover:border-blue-500/50 dark:hover:border-blue-500/50 
                   hover:bg-blue-500/5 dark:hover:bg-blue-500/5
                   text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400
-                  transition-all duration-300 flex items-center gap-2 backdrop-blur-sm"
+                  transition-all duration-300 flex items-center gap-2 backdrop-blur-sm glowing-corner-button`}
+                  onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}
                 >
+                  <div className="light-effect" />
                   {item}
                   <FiExternalLink className="w-4 h-4" />
                 </motion.a>
@@ -62,15 +78,15 @@ const Footer = () => {
           >
             <p className="text-gray-600 dark:text-gray-400">
               © {currentYear} Your Docs. Template สร้างโดย{' '}
-              <FiHeart className="inline-block text-red-500 hover:scale-125 transition-transform" /> 
-              <a
-                href="https://github.com/NekoSakuraLucia/Docs-Website-React"
+              <FiHeart className="inline-block text-red-500 hover:scale-125 transition-transform" />
+              <NavLink
+                to="https://github.com/NekoSakuraLucia/Docs-Website-React"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 dark:text-blue-400 hover:underline"
               >
-               {' '}NekoSakuraLucia
-              </a>
+                {' '}NekoSakuraLucia
+              </NavLink>
             </p>
           </motion.div>
         </div>

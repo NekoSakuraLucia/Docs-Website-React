@@ -1,0 +1,44 @@
+.glowing-corner-button {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.2); /* ขอบโปร่งแสง */
+  backdrop-filter: blur(5px); /* เบลอพื้นหลัง */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* เงาเล็กน้อย */
+  transition: all 0.3s ease;
+}
+
+.light-effect {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, 
+    rgba(147, 51, 234, 0.4) 0%,
+    rgba(147, 51, 234, 0.1) 40%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.glowing-corner-button:hover {
+  box-shadow: 
+    0 0 15px rgba(147, 51, 234, 0.3),  /* สีม่วงอ่อน */
+    0 0 30px rgba(147, 51, 234, 0.2),
+    inset 0 0 10px rgba(147, 51, 234, 0.1);
+  border-color: rgba(147, 51, 234, 0.3);
+}
+
+.glowing-corner-button:hover .light-effect {
+  opacity: 1;
+}
+
+.glowing-corner-button:active {
+  transform: scale(0.95);
+  box-shadow: 
+    0 0 10px rgba(147, 51, 234, 0.2),
+    inset 0 0 5px rgba(147, 51, 234, 0.1);
+}
