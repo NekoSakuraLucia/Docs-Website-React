@@ -1,12 +1,14 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import mdx from '@mdx-js/rollup';
+import RemarkGfm from 'remark-gfm';
 
 export default defineConfig({
   plugins: [
     {
       ...mdx({
-        providerImportSource: '@mdx-js/react'
+        providerImportSource: '@mdx-js/react',
+        remarkPlugins: [RemarkGfm]
       })
     },
     react()
