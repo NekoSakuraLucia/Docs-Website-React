@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router';
+import { useParams } from 'react-router';
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Docs/Sidebar';
 import { motion } from 'framer-motion';
@@ -8,15 +8,16 @@ import TableOfContents from '../components/Docs/TableOfContents';
 const mdxFiles = import.meta.glob('../../docs/**/*.mdx');
 
 function DocsPage() {
-  const { category = 'เริ่มต้นใช้งาน', slug = 'index' } = useParams();
-  const navigate = useNavigate();
+  const { category, slug } = useParams();
   const [MDXComponent, setMDXComponent] = useState(null);
   const [error, setError] = useState(false);
 
   useEffect(() => {
     const loadMDX = async () => {
       try {
-        const filePath = `../../docs/${category}/${slug}.mdx`;
+        const resolvedCategory = category || 'เริ่มต้นใช้งาน';
+        const resolvedSlug = slug || 'index';
+        const filePath = `../../docs/${resolvedCategory}/${resolvedSlug}.mdx`;
 
         if (mdxFiles[filePath]) {
           const module = await mdxFiles[filePath]();
@@ -28,12 +29,11 @@ function DocsPage() {
       } catch (err) {
         console.error('Failed to load MDX:', err);
         setError(true);
-        navigate('/docs/เริ่มต้นใช้งาน/');
       }
     };
 
     loadMDX();
-  }, [category, slug, navigate]);
+  }, [category, slug]);
 
   if (error) {
     return <div>404 - ไม่พบหน้าที่คุณต้องการ</div>;
