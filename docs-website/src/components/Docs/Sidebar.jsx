@@ -1,4 +1,4 @@
-import { useLocation, NavLink } from 'react-router';
+import { NavLink } from 'react-router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiMenu, FiX, FiSearch } from 'react-icons/fi';
 import { useState } from 'react';
@@ -6,7 +6,6 @@ import ModalSearch from './ModalSearch';
 import { menuItems } from '../../data/menuItems';
 
 const Sidebar = () => {
-  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);

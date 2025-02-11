@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import mdxComponents from '../components/Docs/MDXComponents';
 import TableOfContents from '../components/Docs/TableOfContents';
 
-const mdxFiles = import.meta.glob('../../docs/**/*.mdx')
+const mdxFiles = import.meta.glob('../../docs/**/*.mdx');
 
 function DocsPage() {
   const { category = 'เริ่มต้นใช้งาน', slug = 'index' } = useParams();
@@ -23,7 +23,7 @@ function DocsPage() {
           setMDXComponent(() => module.default);
           setError(false);
         } else {
-          throw new Error(`MDX file not found: ${filePath}`)
+          throw new Error(`MDX file not found: ${filePath}`);
         }
       } catch (err) {
         console.error('Failed to load MDX:', err);

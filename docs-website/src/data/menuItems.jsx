@@ -4,7 +4,7 @@ const docFiles = import.meta.glob('/docs/**/*.mdx');
 
 const iconMap = {
   installation: <FiPackage />,
-}
+};
 
 const menuMap = {};
 
@@ -26,11 +26,11 @@ Object.keys(docFiles).forEach((filePath) => {
   }
 
   menuMap[category].items.push({
-    name: fileName === "index" ? "หน้าแรก" : fileName.replace('-', ' '),
+    name: fileName === 'index' ? 'หน้าแรก' : fileName.replace('-', ' '),
     path: `/docs/${category}/${fileName}`,
     icon: iconMap[fileName] || <FiBook />,
     description: `อ่านเอกสารเกี่ยวกับ ${fileName}`,
   });
 });
 
-export const menuItems = Object.values(menuMap)
+export const menuItems = Object.values(menuMap);
