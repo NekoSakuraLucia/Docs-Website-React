@@ -1,5 +1,5 @@
 import CodeBlock from '../Home/CodeBlock';
-import { FiCheck, FiSquare, FiExternalLink } from 'react-icons/fi';
+import { FiExternalLink } from 'react-icons/fi';
 
 /** @type {import('mdx/types.js').MDXComponents} */
 const mdxComponents = {
@@ -51,12 +51,8 @@ const mdxComponents = {
   li: ({ children, className, ...props }) => {
     // ตรวจสอบว่าเป็น task list item หรือไม่
     if (className?.includes('task-list-item')) {
-      const isChecked = className.includes('checked');
       return (
         <li className="flex items-start gap-2 my-1" {...props}>
-          <span className="mt-1 text-blue-500 dark:text-blue-400">
-            {isChecked ? <FiCheck size={16} /> : <FiSquare size={16} />}
-          </span>
           <span>{children}</span>
         </li>
       );
