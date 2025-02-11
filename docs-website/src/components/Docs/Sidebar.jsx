@@ -14,7 +14,7 @@ const Sidebar = () => {
   // กรองรายการเมนูตาม search query
   const filteredMenuItems = menuItems.map(section => ({
     ...section,
-    items: section.items.filter(item => 
+    items: section.items.filter(item =>
       item.name.toLowerCase().includes(searchQuery.toLowerCase())
     )
   })).filter(section => section.items.length > 0);
@@ -22,9 +22,9 @@ const Sidebar = () => {
   return (
     <>
       {/* ตัวค้นหา Modal */}
-      <ModalSearch 
-        isOpen={isSearchOpen} 
-        onClose={() => setIsSearchOpen(false)} 
+      <ModalSearch
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
       />
 
       {/* ปรับขนาดและตำแหน่งปุ่มเมนู */}
@@ -33,7 +33,7 @@ const Sidebar = () => {
         className="fixed lg:hidden top-3 left-3 z-50 p-2 rounded-lg bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border border-gray-200/50 dark:border-gray-700/50 shadow-lg shadow-black/5"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        animate={{ 
+        animate={{
           rotate: isOpen ? 180 : 0,
           backgroundColor: isOpen ? 'rgba(59, 130, 246, 0.1)' : 'rgba(255, 255, 255, 0.8)'
         }}
@@ -68,26 +68,23 @@ const Sidebar = () => {
                 {section.title}
               </h3>
               <div className="space-y-1">
-                {section.items.map((item, itemIdx) => {
-                  const isActive = location.pathname === item.path;
-                  return (
-                    <div key={itemIdx}>
-                      <NavLink
-                        to={item.path}
-                        end
-                        onClick={() => setIsOpen(false)}
-                        className={`flex items-center gap-2 px-4 py-2 text-sm rounded-lg transition-all duration-200 ${
-                          isActive
-                            ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400'
-                            : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100/50 dark:hover:bg-gray-800/50'
-                        }`}
-                      >
-                        <span className="w-5 h-5">{item.icon}</span>
-                        {item.name}
-                      </NavLink>
-                    </div>
-                  );
-                })}
+                {section.items.map((item, itemIdx) => (
+                  <NavLink
+                    key={itemIdx}
+                    to={item.path}
+                    end
+                    onClick={() => setIsOpen(false)}
+                    className={({ isActive }) => `
+                    flex items-center gap-2 px-4 py-2 text-sm rounded-lg transition-all duration-200 
+                    ${isActive
+                        ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400'
+                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100/50 dark:hover:bg-gray-800/50'}
+                  `}
+                  >
+                    <span className="w-5 h-5">{item.icon}</span>
+                    {item.name}
+                  </NavLink>
+                ))}
               </div>
             </div>
           ))}
@@ -106,7 +103,7 @@ const Sidebar = () => {
               onClick={() => setIsOpen(false)}
               className="lg:hidden fixed inset-0 bg-gray-900/20 dark:bg-gray-900/40 backdrop-blur-sm z-30"
             />
-            
+
             {/* เมนูมือถือ */}
             <motion.div
               initial={{ x: -280, opacity: 0 }}
@@ -145,8 +142,8 @@ const Sidebar = () => {
                           onClick={() => setIsOpen(false)}
                           className={({ isActive }) => `
                             flex items-center gap-2 px-2 py-1.5 text-sm rounded-lg transition-all duration-200
-                            ${isActive 
-                              ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400 font-medium' 
+                            ${isActive
+                              ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400 font-medium'
                               : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100/50 dark:hover:bg-gray-800/50'
                             }
                           `}
