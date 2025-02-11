@@ -75,7 +75,7 @@ const Sidebar = () => {
                     onClick={() => setIsOpen(false)}
                     className={({ isActive }) => `
                     flex items-center gap-2 px-4 py-2 text-sm rounded-lg transition-all duration-200 
-                    ${isActive
+                    ${isActive || location.pathname === item.path || (location.pathname === '/docs' && item.path === '/docs/เริ่มต้นใช้งาน/index')
                         ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400'
                         : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100/50 dark:hover:bg-gray-800/50'}
                   `}
