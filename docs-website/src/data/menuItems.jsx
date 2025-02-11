@@ -1,27 +1,36 @@
-import { FiBook, FiPackage, FiCode } from 'react-icons/fi';
+import { FiBook, FiPackage } from 'react-icons/fi';
 
-export const menuItems = [
-  {
-    title: 'เริ่มต้นใช้งาน',
-    items: [
-      { 
-        name: 'แนะนำ', 
-        path: '/docs', 
-        icon: <FiBook />, 
-        description: 'เริ่มต้นใช้งานเอกสาร' 
-      },
-      { 
-        name: 'การติดตั้ง', 
-        path: '/docs/installation', 
-        icon: <FiPackage />, 
-        description: 'วิธีการติดตั้งและตั้งค่า' 
-      },
-      { 
-        name: 'การใช้งานพื้นฐาน', 
-        path: '/docs/basic-usage', 
-        icon: <FiCode />, 
-        description: 'เรียนรู้การใช้งานพื้นฐาน' 
-      },
-    ]
+const docFiles = import.meta.glob('/docs/**/*.mdx');
+
+const iconMap = {
+  installation: <FiPackage />,
+}
+
+const menuMap = {};
+
+Object.keys(docFiles).forEach((filePath) => {
+  const parts = filePath.replace('/docs/', '').replace('.mdx', '').split('/');
+
+  if (parts.length < 2) return;
+
+  const category = parts[0];
+  const fileName = parts[1];
+
+  if (!fileName) return;
+
+  if (!menuMap[category]) {
+    menuMap[category] = {
+      title: category.replace('-', ' '),
+      items: [],
+    };
   }
-];
+
+  menuMap[category].items.push({
+    name: fileName === "index" ? "หน้าแรก" : fileName.replace('-', ' '),
+    path: `/docs/${category}/${fileName}`,
+    icon: iconMap[fileName] || <FiBook />,
+    description: `อ่านเอกสารเกี่ยวกับ ${fileName}`,
+  });
+});
+
+export const menuItems = Object.values(menuMap)

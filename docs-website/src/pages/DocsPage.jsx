@@ -5,8 +5,10 @@ import { motion } from 'framer-motion';
 import mdxComponents from '../components/Docs/MDXComponents';
 import TableOfContents from '../components/Docs/TableOfContents';
 
+const mdxFiles = import.meta.glob('../../docs/**/*.mdx')
+
 function DocsPage() {
-  const { slug } = useParams();
+  const { category = 'เริ่มต้นใช้งาน', slug = 'index' } = useParams();
   const navigate = useNavigate();
   const [MDXComponent, setMDXComponent] = useState(null);
   const [error, setError] = useState(false);
@@ -14,18 +16,24 @@ function DocsPage() {
   useEffect(() => {
     const loadMDX = async () => {
       try {
-        const module = await import(`../../docs/${slug || 'index'}.mdx`);
-        setMDXComponent(() => module.default);
-        setError(false);
+        const filePath = `../../docs/${category}/${slug}.mdx`;
+
+        if (mdxFiles[filePath]) {
+          const module = await mdxFiles[filePath]();
+          setMDXComponent(() => module.default);
+          setError(false);
+        } else {
+          throw new Error(`MDX file not found: ${filePath}`)
+        }
       } catch (err) {
         console.error('Failed to load MDX:', err);
         setError(true);
-        navigate('/docs');
+        navigate('/docs/เริ่มต้นใช้งาน/');
       }
     };
 
     loadMDX();
-  }, [slug, navigate]);
+  }, [category, slug, navigate]);
 
   if (error) {
     return <div>404 - ไม่พบหน้าที่คุณต้องการ</div>;
@@ -41,7 +49,7 @@ function DocsPage() {
       {/* ส่วนแสดงเนื้อหา */}
       <div className="flex relative">
         <Sidebar />
-        
+
         {/* ปรับ main content ให้มี max-width และ padding ที่เหมาะสม */}
         <main className="flex-1 w-full">
           <div className="mx-auto px-4 lg:px-8 py-8 lg:pl-[280px] xl:pr-[240px]">
