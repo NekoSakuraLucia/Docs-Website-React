@@ -23,19 +23,19 @@ const MdxLink = ({ children, href, ...props }) => {
 
     return isExternal ? (
         <a
-        href={href}
-        target='_blank'
-        rel="noopener noreferrer"
-        className="text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1 group"
-        {...props}
+            href={href}
+            target='_blank'
+            rel="noopener noreferrer"
+            className="text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1 group"
+            {...props}
         >
             {children}
             <FiExternalLink className='inline-block w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform' />
         </a>
     ) : (
         <span
-        onClick={() => navigate(href)}
-        className='cursor-pointer text-blue-600 dark:text-blue-400 hover:underline'
+            onClick={() => navigate(href)}
+            className='cursor-pointer text-blue-600 dark:text-blue-400 hover:underline'
         >
             {children}
         </span>
