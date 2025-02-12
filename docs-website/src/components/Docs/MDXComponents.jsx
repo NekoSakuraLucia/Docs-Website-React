@@ -1,10 +1,9 @@
 import CodeBlock from '../Home/CodeBlock';
-import { FiExternalLink } from 'react-icons/fi';
 
 /** @type {import('mdx/types.js').MDXComponents} */
 const mdxComponents = {
   CodeBlock,
-  
+
   // จัดการกับ code blocks ที่ใช้ ```
   pre: props => {
     const codeEl = props.children;
@@ -17,14 +16,14 @@ const mdxComponents = {
     }
     return <pre {...props}>{props.children}</pre>;
   },
-  
+
   code: ({ children, className, ...props }) => {
     if (className) {
       const language = className?.split('-')[1] || 'text';
       return <CodeBlock code={children} language={language} />;
     }
     return (
-      <code 
+      <code
         className="px-1.5 py-0.5 text-sm font-mono text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 rounded"
         {...props}
       >
@@ -32,21 +31,6 @@ const mdxComponents = {
       </code>
     );
   },
-
-  a: ({ children, href, ...props }) => (
-    <a
-      href={href}
-      target={href?.startsWith('http') ? '_blank' : undefined}
-      rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-      className="text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1 group"
-      {...props}
-    >
-      {children}
-      {href?.startsWith('http') && (
-        <FiExternalLink className="inline-block w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-      )}
-    </a>
-  ),
 
   li: ({ children, className, ...props }) => {
     // ตรวจสอบว่าเป็น task list item หรือไม่
@@ -88,7 +72,7 @@ const mdxComponents = {
       {children}
     </h2>
   ),
-  
+
   p: ({ children, ...props }) => (
     <p className="text-lg leading-7 mb-4 text-gray-700 dark:text-gray-300" {...props}>
       {children}
@@ -96,8 +80,8 @@ const mdxComponents = {
   ),
 
   strong: ({ children, ...props }) => (
-    <strong 
-      className="font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent" 
+    <strong
+      className="font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent"
       {...props}
     >
       {children}
