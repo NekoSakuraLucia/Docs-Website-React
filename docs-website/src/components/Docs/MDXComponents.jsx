@@ -1,8 +1,10 @@
 import CodeBlock from '../Home/CodeBlock';
+import MdxLink from './MDX/MdxLink';
 
 /** @type {import('mdx/types.js').MDXComponents} */
 const mdxComponents = {
   CodeBlock,
+  a: MdxLink,
 
   // จัดการกับ code blocks ที่ใช้ ```
   pre: props => {
