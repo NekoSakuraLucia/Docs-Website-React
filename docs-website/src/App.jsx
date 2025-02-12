@@ -5,6 +5,7 @@ import DocsPage from './pages/DocsPage';
 import HomePage from './pages/HomePage';
 import { NotificationProvider } from './contexts/NotificationProvider';
 import { ThemeProvider } from './contexts/Theme/ThemeProvider';
+import CodeEditor from './pages/CodeEdit/CodeEditor';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
               <Route path="docs" element={<DocsPage />}>
                 <Route path=":category/:slug" element={<DocsPage />} />
               </Route>
+              <Route path='edit/:slug' element={<CodeEditor />} />
             </Route>
           </Routes>
         </BrowserRouter>
