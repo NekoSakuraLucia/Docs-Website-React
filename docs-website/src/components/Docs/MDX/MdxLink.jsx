@@ -2,17 +2,26 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router';
 import { FiExternalLink } from 'react-icons/fi';
 
+const generateRandomBase64 = () => {
+    const randomBytes = new Uint8Array(15);
+    crypto.getRandomValues(randomBytes);
+    return btoa(String.fromCharCode(...randomBytes)).replace(/[^a-zA-Z0-9]/g, '').slice(0, 20);
+};
+
 const MdxLink = ({ children, href, ...props }) => {
     const navigate = useNavigate();
     const isExternal = href?.startsWith('http');
+    const decodeHref = decodeURIComponent(href || '');
 
-    if (typeof children === 'string' && children.trim() === 'ทดสอบเล่นโค้ด เพื่อดูการแก้ใข') {
+    if (decodeHref.includes('/edit/[hash]')) {
+        const randomHash = generateRandomBase64();
+        const editPath = decodeHref.replace('[hash]', randomHash);
+
         return (
             <button
                 onClick={() => {
-                    if (href) {
-                        isExternal ? window.open(href, '_blank') : navigate(href);
-                    }
+                    localStorage.setItem('editHash', randomHash);
+                    navigate(editPath);
                 }}
                 className='px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-all'
             >
