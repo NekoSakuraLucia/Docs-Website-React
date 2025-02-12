@@ -4,6 +4,7 @@ import Sidebar from '../components/Docs/Sidebar';
 import { motion } from 'framer-motion';
 import mdxComponents from '../components/Docs/MDXComponents';
 import TableOfContents from '../components/Docs/TableOfContents';
+import ReactDOMServer from 'react-dom/server';
 
 const mdxFiles = import.meta.glob('../../docs/**/*.mdx');
 
@@ -23,6 +24,9 @@ function DocsPage() {
           const module = await mdxFiles[filePath]();
           setMDXComponent(() => module.default);
           setError(false);
+
+          const htmlString = ReactDOMServer.renderToStaticMarkup(<module.default />);
+          localStorage.setItem('markdown_content', htmlString);
         } else {
           throw new Error(`MDX file not found: ${filePath}`);
         }
