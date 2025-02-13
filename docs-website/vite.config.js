@@ -22,7 +22,8 @@ export default defineConfig({
   optimizeDeps: {
     include: [
       '@mdx-js/react',
-      'typewriter-effect'
+      'typewriter-effect',
+      'react-simple-code-editor'
     ]
   },
   server: {
