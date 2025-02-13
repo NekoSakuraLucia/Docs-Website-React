@@ -1,6 +1,10 @@
-import { useRef, useState } from 'react';
-import { Highlight, themes } from 'prism-react-renderer';
+import { useEffect, useState } from 'react';
 import { FiPlay } from 'react-icons/fi';
+import Editor from 'react-simple-code-editor';
+import { highlight, languages } from 'prismjs/components/prism-core';
+import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-markup';
+import 'prismjs/themes/prism-tomorrow.css';
 
 const defaultCode = `
 <!DOCTYPE html>
@@ -8,7 +12,7 @@ const defaultCode = `
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Glassmorphism</title>
+  <title>Neko Test</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -31,7 +35,7 @@ const defaultCode = `
 </head>
 <body>
   <div class="glass">
-    <h1>Hello Glassmorphism!</h1>
+    <h1>Hello Neko!</h1>
   </div>
 </body>
 </html>
@@ -40,16 +44,18 @@ const defaultCode = `
 function CodeEditor() {
     const [code, setCode] = useState(defaultCode);
     const [output, setOutput] = useState(defaultCode);
-    const editorRef = useRef(null);
+
+    useEffect(() => {
+        const savedCode = localStorage.getItem('markdown_content');
+        if (savedCode) {
+            setCode(savedCode);
+            setOutput(savedCode);
+        }
+    }, []);
 
     const handleRun = () => {
         setOutput(code);
-    };
-
-    const handleInput = () => {
-        if (editorRef.current) {
-            setCode(editorRef.current.innerText);
-        }
+        localStorage.setItem('markdown_content', code);
     };
 
     return (
@@ -66,35 +72,23 @@ function CodeEditor() {
                             <FiPlay size={16} /> Run
                         </button>
                     </div>
-                    <div
-                        ref={editorRef}
-                        contentEditable="true"
-                        suppressContentEditableWarning
-                        onInput={handleInput}
-                        className="relative bg-black/50 p-2 rounded-lg overflow-auto max-h-[70vh]">
-                        <Highlight theme={themes.nightOwl} code={code} language="html">
-                            {({ style, tokens, getLineProps, getTokenProps }) => (
-                                <pre style={style} className="text-sm leading-normal">
-                                    {tokens.map((line, i) => {
-                                        return (
-                                            <div key={i} {...getLineProps({ line })}>
-                                                {line.map((token, tokenIndex) => {
-                                                    return <span key={`${i}-${tokenIndex}`} {...getTokenProps({ token })} />;
-                                                })}
-                                            </div>
-                                        );
-                                    })}
-                                </pre>
-                            )}
-                        </Highlight>
-                    </div>
+
+                    <Editor
+                        value={code}
+                        onValueChange={setCode}
+                        highlight={code => highlight(code, languages.markup)}
+                        padding={10}
+                        className='relative bg-black/50 p-2 rounded-lg overflow-auto max-h-[70vh]'
+                        textareaId="code-editor"
+                        textareaClassName="outline-none border-none bg-transparent text-white font-mono"
+                    />
                 </div>
             </div>
 
             {/* Output */}
             <div className="p-4">
-                <div className="border border-white/20 rounded-xl shadow-lg p-4 flex-1">
-                    <span className="text-sm text-gray-300">Output</span>
+                <div className="border border-white/20 rounded-xl shadow-lg p-4 flex-1 bg-white">
+                    <span className="text-sm text-black">Output</span>
                     <iframe
                         title="output"
                         className="w-full h-[80vh] rounded-lg border mt-2"
@@ -104,6 +98,6 @@ function CodeEditor() {
             </div>
         </div>
     );
-}
+};
 
 export default CodeEditor;
