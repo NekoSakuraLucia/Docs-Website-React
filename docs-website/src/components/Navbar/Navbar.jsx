@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import { FiBook, FiGithub, FiMenu, FiMoon, FiSun } from 'react-icons/fi';
+import { FiBook, FiMenu, FiMoon, FiSun } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { useTheme } from '../../contexts/Theme/useTheme';
@@ -23,7 +23,7 @@ const Navbar = () => {
               <motion.span
                 className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600"
               >
-                Your Docs
+                Tutorial Docs
               </motion.span>
             </Link>
           </motion.div>
@@ -36,20 +36,8 @@ const Navbar = () => {
                 className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 <FiBook />
-                <span>Documentation</span>
+                <span>อ่านเอกสาร</span>
               </Link>
-            </motion.div>
-
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <a
-                href="https://github.com/NekoSakuraLucia/Docs-Website-React"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-              >
-                <FiGithub />
-                <span>GitHub</span>
-              </a>
             </motion.div>
 
             <motion.button
@@ -109,25 +97,8 @@ const Navbar = () => {
                     className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                   >
                     <FiBook />
-                    <span>Documentation</span>
+                    <span>อ่านเอกสาร</span>
                   </Link>
-                </motion.div>
-
-                <motion.div
-                  variants={{
-                    open: { x: 0, opacity: 1 },
-                    closed: { x: 20, opacity: 0 }
-                  }}
-                >
-                  <a
-                    href="https://github.com/NekoSakuraLucia/Docs-Website-React"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                  >
-                    <FiGithub />
-                    <span>GitHub</span>
-                  </a>
                 </motion.div>
 
                 <motion.div
