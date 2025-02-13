@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { FiPlay } from 'react-icons/fi';
 import Editor from 'react-simple-code-editor';
-import { highlight, languages } from 'prismjs/components/prism-core';
+import Prism from 'prismjs';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-markup';
 import 'prismjs/themes/prism-tomorrow.css';
+import beautify from 'js-beautify';
 
 const defaultCode = `
 <!DOCTYPE html>
@@ -48,14 +49,30 @@ function CodeEditor() {
     useEffect(() => {
         const savedCode = localStorage.getItem('markdown_content');
         if (savedCode) {
-            setCode(savedCode);
-            setOutput(savedCode);
+            try {
+                const formattedCode = beautify.html(savedCode, {
+                    indent_size: 2,
+                    space_in_empty_paren: true,
+                });
+
+                setCode(formattedCode);
+                setOutput(formattedCode);
+            } catch (error) {
+                console.error(error);
+                setCode(defaultCode);
+                setOutput(defaultCode);
+            }
         }
     }, []);
 
     const handleRun = () => {
         setOutput(code);
         localStorage.setItem('markdown_content', code);
+    };
+
+    const highlight = (code) => {
+        const language = Prism.languages.markup;
+        return Prism.highlight(code, language, 'markup');
     };
 
     return (
@@ -76,9 +93,9 @@ function CodeEditor() {
                     <Editor
                         value={code}
                         onValueChange={setCode}
-                        highlight={code => highlight(code, languages.markup)}
+                        highlight={highlight}
                         padding={10}
-                        className='relative bg-black/50 p-2 rounded-lg overflow-auto max-h-[70vh]'
+                        className='relative bg-black/50 p-2 rounded-lg overflow-auto min-h-[100vh]'
                         textareaId="code-editor"
                         textareaClassName="outline-none border-none bg-transparent text-white font-mono"
                     />
