@@ -20,7 +20,7 @@ const TypedCodeBlock = () => {
                                 .typeString('const messages = [\n')
                                 .typeString('  "คำแนะนำที่ครอบคลุมของคุณในการสร้างซอฟต์แวร์ที่น่าทึ่ง เรียบง่าย และจัดทำเป็นเอกสารอย่างสวยงาม",\n')
                                 .pauseFor(500)
-                                .typeString('  "Template เว็บไซต์ Docs แจกฟรี สำหรับสร้างเอกสารอย่างสวยงาม",\n')
+                                .typeString('  "เว็บไซต์ Tutorial Web เอกสารที่อยากจะแนะนำให้กับคุณเลย!!!!",\n')
                                 .pauseFor(500)
                                 .typeString('];\n\n')
                                 .typeString('console.log(messages);')
@@ -44,7 +44,6 @@ const Hero = () => {
     const springX = useSpring(mouseX, { damping });
     const springY = useSpring(mouseY, { damping });
 
-    // Transform values for rotation และ perspective
     const rotateX = useTransform(springY, [-0.5, 0.5], [15, -15]);
     const rotateY = useTransform(springX, [-0.5, 0.5], [-15, 15]);
 
@@ -55,7 +54,6 @@ const Hero = () => {
                 const centerX = rect.x + rect.width / 2;
                 const centerY = rect.y + rect.height / 2;
 
-                // Calculate normalized mouse position (-0.5 to 0.5)
                 mouseX.set((e.clientX - centerX) / rect.width);
                 mouseY.set((e.clientY - centerY) / rect.height);
             }
@@ -100,7 +98,7 @@ const Hero = () => {
                                     ยินดีต้อนรับ สู่{' '}
                                     <span className="inline-block">
                                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 animate-gradient">
-                                            Your Docs
+                                            Tutorial Web
                                         </span>
                                         <motion.div
                                             className="h-1 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 rounded-full mt-1"
@@ -136,18 +134,6 @@ const Hero = () => {
                                     <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 blur-lg opacity-0 group-hover:opacity-50 transition-opacity" />
                                     <span className="relative">ลองใช้งานตอนนี้</span>
                                 </motion.a>
-
-                                <motion.a
-                                    whileHover={{ scale: 1.05, translateY: -2 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    href="https://github.com/NekoSakuraLucia/Docs-Website-React"
-                                    rel="noopener noreferrer"
-                                    target='_blank'
-                                    className="relative group px-8 py-3 rounded-xl font-medium transition-all duration-300"
-                                >
-                                    <span className="absolute inset-0 rounded-xl bg-white dark:bg-gray-800 opacity-50 group-hover:opacity-70 backdrop-blur-sm transition-opacity" />
-                                    <span className="relative text-gray-900 dark:text-white">ดูโค้ดบน GitHub</span>
-                                </motion.a>
                             </motion.div>
                         </div>
                     </motion.div>
@@ -166,13 +152,13 @@ const Hero = () => {
                         >
                             {/* เอฟเฟกต์เรืองแสง */}
                             <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity" />
-                            
+
                             {/* เนื้อหาหลัก 2 */}
                             <div className="relative backdrop-blur-sm bg-white/5 dark:bg-gray-900/5 p-3 rounded-2xl border border-white/30 dark:border-gray-700/30 shadow-2xl">
                                 {/* องค์ประกอบลอยตัว 3 มิติ */}
                                 <div className="absolute -left-4 -top-4 w-8 h-8 bg-blue-500/10 rounded-lg transform rotate-12 translate-z-12" style={{ transform: 'translateZ(40px)' }} />
                                 <div className="absolute -right-6 -bottom-6 w-12 h-12 bg-purple-500/10 rounded-lg transform -rotate-12 translate-z-8" style={{ transform: 'translateZ(60px)' }} />
-                                
+
                                 {/* เนื้อหาภายในโค้ด */}
                                 <motion.div
                                     style={{ transform: 'translateZ(30px)' }}
