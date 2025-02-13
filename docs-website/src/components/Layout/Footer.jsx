@@ -77,16 +77,19 @@ const Footer = () => {
             className="mt-8 pt-6 border-t border-gray-200/50 dark:border-gray-800/50 text-center"
           >
             <p className="text-gray-600 dark:text-gray-400">
-              © {currentYear} Your Docs. Template สร้างโดย{' '}
+              © {currentYear} Your Docs. สร้างโดย{' '}
               <FiHeart className="inline-block text-red-500 hover:scale-125 transition-transform" />
               <NavLink
-                to="https://github.com/NekoSakuraLucia/Docs-Website-React"
+                to="https://nekosakura.work"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 dark:text-blue-400 hover:underline"
               >
                 {' '}NekoSakuraLucia
               </NavLink>
+            </p>
+            <p className='text-gray-600 dark:text-gray-400'>
+              ผู้รับงาน <NavLink to="https://www.facebook.com/cxllme.neko" target='_blank' rel="noopener noreferrer" className="text-pink-500 dark:text-pink-400 hover:underline">Cxllme Neko</NavLink>
             </p>
           </motion.div>
         </div>
