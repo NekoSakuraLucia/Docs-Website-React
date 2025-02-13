@@ -23,7 +23,8 @@ export default defineConfig({
     include: [
       '@mdx-js/react',
       'typewriter-effect',
-      'react-simple-code-editor'
+      'react-simple-code-editor',
+      'js-beautify'
     ]
   },
   server: {
