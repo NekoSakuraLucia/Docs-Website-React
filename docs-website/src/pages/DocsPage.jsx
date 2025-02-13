@@ -16,7 +16,7 @@ function DocsPage() {
   useEffect(() => {
     const loadMDX = async () => {
       try {
-        const resolvedCategory = category || 'เริ่มต้นใช้งาน';
+        const resolvedCategory = category || 'CSS';
         const resolvedSlug = slug || 'index';
         const filePath = `../../docs/${resolvedCategory}/${resolvedSlug}.mdx`;
 
