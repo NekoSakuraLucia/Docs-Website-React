@@ -42,6 +42,44 @@ const defaultCode = `
 </html>
 `.trim();
 
+function decodeHtmlEntities(text) {
+    const textarea = document.createElement('textarea');
+    textarea.innerHTML = text;
+    return textarea.value;
+}
+
+function filterCode(htmlString) {
+    try {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlString, 'text/html');
+
+        let filteredCode = '';
+
+        const preCodeElements = doc.querySelectorAll('pre > code');
+        if (preCodeElements.length > 0) {
+            preCodeElements.forEach(code => {
+                const decodedCode = decodeHtmlEntities(code.innerHTML.trim());
+                filteredCode += `<pre><code>${decodedCode}</code></pre>\n`;
+            });
+            return beautify.html(filteredCode, { indent_size: 2 });
+        }
+
+        const codeElements = doc.querySelectorAll('code');
+        if (codeElements.length > 0) {
+            codeElements.forEach(code => {
+                const decodedCode = decodeHtmlEntities(code.innerHTML.trim());
+                filteredCode += `<code>${decodedCode}</code>\n`;
+            });
+            return beautify.html(filteredCode, { indent_size: 2 });
+        }
+
+        return defaultCode;
+    } catch (error) {
+        console.error('Error parsing HTML:', error);
+        return defaultCode;
+    }
+}
+
 function CodeEditor() {
     const [code, setCode] = useState(defaultCode);
     const [output, setOutput] = useState(defaultCode);
@@ -49,19 +87,9 @@ function CodeEditor() {
     useEffect(() => {
         const savedCode = localStorage.getItem('markdown_content');
         if (savedCode) {
-            try {
-                const formattedCode = beautify.html(savedCode, {
-                    indent_size: 2,
-                    space_in_empty_paren: true,
-                });
-
-                setCode(formattedCode);
-                setOutput(formattedCode);
-            } catch (error) {
-                console.error(error);
-                setCode(defaultCode);
-                setOutput(defaultCode);
-            }
+            const validCode = filterCode(savedCode);
+            setCode(validCode);
+            setOutput(validCode);
         }
     }, []);
 
