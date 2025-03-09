@@ -13,14 +13,18 @@ const TypedCodeBlock = () => {
                         options={{
                             delay: 50,
                             cursor: '|',
-                            wrapperClassName: 'whitespace-pre-wrap'
+                            wrapperClassName: 'whitespace-pre-wrap',
                         }}
                         onInit={(typewriter) => {
                             typewriter
                                 .typeString('const messages = [\n')
-                                .typeString('  "คำแนะนำที่ครอบคลุมของคุณในการสร้างซอฟต์แวร์ที่น่าทึ่ง เรียบง่าย และจัดทำเป็นเอกสารอย่างสวยงาม",\n')
+                                .typeString(
+                                    '  "คำแนะนำที่ครอบคลุมของคุณในการสร้างซอฟต์แวร์ที่น่าทึ่ง เรียบง่าย และจัดทำเป็นเอกสารอย่างสวยงาม",\n'
+                                )
                                 .pauseFor(500)
-                                .typeString('  "เว็บไซต์ Tutorial Web เอกสารที่อยากจะแนะนำให้กับคุณเลย!!!!",\n')
+                                .typeString(
+                                    '  "เว็บไซต์ Docs Web เอกสารที่อยากจะแนะนำให้กับคุณเลย!!!!",\n'
+                                )
                                 .pauseFor(500)
                                 .typeString('];\n\n')
                                 .typeString('console.log(messages);')
@@ -98,13 +102,16 @@ const Hero = () => {
                                     ยินดีต้อนรับ สู่{' '}
                                     <span className="inline-block">
                                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 animate-gradient">
-                                            Tutorial Web
+                                            Docs Web
                                         </span>
                                         <motion.div
                                             className="h-1 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 rounded-full mt-1"
                                             initial={{ scaleX: 0 }}
                                             animate={{ scaleX: 1 }}
-                                            transition={{ delay: 0.5, duration: 0.8 }}
+                                            transition={{
+                                                delay: 0.5,
+                                                duration: 0.8,
+                                            }}
                                         />
                                     </span>
                                 </h1>
@@ -116,7 +123,8 @@ const Hero = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.4, duration: 0.8 }}
                             >
-                                คำแนะนำที่ครอบคลุมของคุณในการสร้างซอฟต์แวร์ที่น่าทึ่ง เรียบง่าย ทรงพลัง และจัดทำเป็นเอกสารอย่างสวยงาม
+                                คำแนะนำที่ครอบคลุมของคุณในการสร้างซอฟต์แวร์ที่น่าทึ่ง
+                                เรียบง่าย ทรงพลัง และจัดทำเป็นเอกสารอย่างสวยงาม
                             </motion.p>
 
                             <motion.div
@@ -132,7 +140,9 @@ const Hero = () => {
                                     className="relative group px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium transition-all duration-300"
                                 >
                                     <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 blur-lg opacity-0 group-hover:opacity-50 transition-opacity" />
-                                    <span className="relative">ลองใช้งานตอนนี้</span>
+                                    <span className="relative">
+                                        ลองใช้งานตอนนี้
+                                    </span>
                                 </motion.a>
                             </motion.div>
                         </div>
@@ -156,8 +166,14 @@ const Hero = () => {
                             {/* เนื้อหาหลัก 2 */}
                             <div className="relative backdrop-blur-sm bg-white/5 dark:bg-gray-900/5 p-3 rounded-2xl border border-white/30 dark:border-gray-700/30 shadow-2xl">
                                 {/* องค์ประกอบลอยตัว 3 มิติ */}
-                                <div className="absolute -left-4 -top-4 w-8 h-8 bg-blue-500/10 rounded-lg transform rotate-12 translate-z-12" style={{ transform: 'translateZ(40px)' }} />
-                                <div className="absolute -right-6 -bottom-6 w-12 h-12 bg-purple-500/10 rounded-lg transform -rotate-12 translate-z-8" style={{ transform: 'translateZ(60px)' }} />
+                                <div
+                                    className="absolute -left-4 -top-4 w-8 h-8 bg-blue-500/10 rounded-lg transform rotate-12 translate-z-12"
+                                    style={{ transform: 'translateZ(40px)' }}
+                                />
+                                <div
+                                    className="absolute -right-6 -bottom-6 w-12 h-12 bg-purple-500/10 rounded-lg transform -rotate-12 translate-z-8"
+                                    style={{ transform: 'translateZ(60px)' }}
+                                />
 
                                 {/* เนื้อหาภายในโค้ด */}
                                 <motion.div

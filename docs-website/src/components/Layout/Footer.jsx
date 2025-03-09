@@ -39,10 +39,10 @@ const Footer = () => {
                             className="text-center md:text-left"
                         >
                             <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 mb-2">
-                                Tutorial Docs
+                                Docs Web
                             </h2>
                             <p className="text-gray-600 dark:text-gray-400 max-w-md">
-                                เว็บไซต์ Tutorial Web
+                                เว็บไซต์ Docs Web
                                 เอกสารที่อยากจะแนะนำให้กับคุณเลย!!!!
                             </p>
                         </motion.div>

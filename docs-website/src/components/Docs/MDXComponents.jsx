@@ -1,100 +1,134 @@
 import CodeBlock from '../Home/CodeBlock';
-import MdxLink from './MDX/MdxLink';
+import { FiExternalLink } from 'react-icons/fi';
 
 /** @type {import('mdx/types.js').MDXComponents} */
 const mdxComponents = {
-  CodeBlock,
-  a: MdxLink,
+    CodeBlock,
+    a: ({ children, href, ...props }) => {
+        const isExternal = href?.startsWith('http');
 
-  // จัดการกับ code blocks ที่ใช้ ```
-  pre: props => {
-    const codeEl = props.children;
-    // ตรวจสอบว่าเป็น code block หรือไม่
-    if (codeEl?.props?.mdxType === 'code') {
-      const { children: code, className } = codeEl.props;
-      // ดึง language จาก className
-      const language = className?.split('-')[1] || 'text';
-      return <CodeBlock code={code} language={language} />;
-    }
-    return <pre {...props}>{props.children}</pre>;
-  },
+        return isExternal ? (
+            <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1 group"
+                {...props}
+            >
+                {children}
+                <FiExternalLink className="inline-block w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
+        ) : (
+            <span className="cursor-pointer text-blue-600 dark:text-blue-400 hover:underline">
+                {children}
+            </span>
+        );
+    },
 
-  code: ({ children, className, ...props }) => {
-    if (className) {
-      const language = className?.split('-')[1] || 'text';
-      return <CodeBlock code={children} language={language} />;
-    }
-    return (
-      <code
-        className="px-1.5 py-0.5 text-sm font-mono text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 rounded"
-        {...props}
-      >
-        {children}
-      </code>
-    );
-  },
+    // จัดการกับ code blocks ที่ใช้ ```
+    pre: (props) => {
+        const codeEl = props.children;
+        // ตรวจสอบว่าเป็น code block หรือไม่
+        if (codeEl?.props?.mdxType === 'code') {
+            const { children: code, className } = codeEl.props;
+            // ดึง language จาก className
+            const language = className?.split('-')[1] || 'text';
+            return <CodeBlock code={code} language={language} />;
+        }
+        return <pre {...props}>{props.children}</pre>;
+    },
 
-  li: ({ children, className, ...props }) => {
-    // ตรวจสอบว่าเป็น task list item หรือไม่
-    if (className?.includes('task-list-item')) {
-      return (
-        <li className="flex items-start gap-2 my-1" {...props}>
-          <span>{children}</span>
-        </li>
-      );
-    }
+    code: ({ children, className, ...props }) => {
+        if (className) {
+            const language = className?.split('-')[1] || 'text';
+            return <CodeBlock code={children} language={language} />;
+        }
+        return (
+            <code
+                className="px-1.5 py-0.5 text-sm font-mono text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 rounded"
+                {...props}
+            >
+                {children}
+            </code>
+        );
+    },
 
-    return (
-      <li className="my-1 ml-4 list-disc marker:text-blue-500 dark:marker:text-blue-400" {...props}>
-        {children}
-      </li>
-    );
-  },
+    li: ({ children, className, ...props }) => {
+        // ตรวจสอบว่าเป็น task list item หรือไม่
+        if (className?.includes('task-list-item')) {
+            return (
+                <li className="flex items-start gap-2 my-1" {...props}>
+                    <span>{children}</span>
+                </li>
+            );
+        }
 
-  ul: ({ children, ...props }) => (
-    <ul className="my-6 space-y-1" {...props}>
-      {children}
-    </ul>
-  ),
+        return (
+            <li
+                className="my-1 ml-4 list-disc marker:text-blue-500 dark:marker:text-blue-400"
+                {...props}
+            >
+                {children}
+            </li>
+        );
+    },
 
-  ol: ({ children, ...props }) => (
-    <ol className="my-6 ml-4 space-y-1 list-decimal marker:text-blue-500 dark:marker:text-blue-400" {...props}>
-      {children}
-    </ol>
-  ),
+    ul: ({ children, ...props }) => (
+        <ul className="my-6 space-y-1" {...props}>
+            {children}
+        </ul>
+    ),
 
-  h1: ({ children, ...props }) => (
-    <h1 className="text-4xl font-bold mb-6 text-gray-900 dark:text-white scroll-m-20" {...props}>
-      {children}
-    </h1>
-  ),
+    ol: ({ children, ...props }) => (
+        <ol
+            className="my-6 ml-4 space-y-1 list-decimal marker:text-blue-500 dark:marker:text-blue-400"
+            {...props}
+        >
+            {children}
+        </ol>
+    ),
 
-  h2: ({ children, ...props }) => (
-    <h2 className="text-3xl font-bold mt-12 mb-4 text-gray-800 dark:text-gray-100" {...props}>
-      {children}
-    </h2>
-  ),
+    h1: ({ children, ...props }) => (
+        <h1
+            className="text-4xl font-bold mb-6 text-gray-900 dark:text-white scroll-m-20"
+            {...props}
+        >
+            {children}
+        </h1>
+    ),
 
-  p: ({ children, ...props }) => (
-    <p className="text-lg leading-7 mb-4 text-gray-700 dark:text-gray-300" {...props}>
-      {children}
-    </p>
-  ),
+    h2: ({ children, ...props }) => (
+        <h2
+            className="text-3xl font-bold mt-12 mb-4 text-gray-800 dark:text-gray-100"
+            {...props}
+        >
+            {children}
+        </h2>
+    ),
 
-  strong: ({ children, ...props }) => (
-    <strong
-      className="font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent"
-      {...props}
-    >
-      {children}
-    </strong>
-  ),
+    p: ({ children, ...props }) => (
+        <p
+            className="text-lg leading-7 mb-4 text-gray-700 dark:text-gray-300"
+            {...props}
+        >
+            {children}
+        </p>
+    ),
 
-  hr: () => (
-    <div className="my-8">
-      <div className="h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent" />
-    </div>
-  )
+    strong: ({ children, ...props }) => (
+        <strong
+            className="font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent"
+            {...props}
+        >
+            {children}
+        </strong>
+    ),
+
+    hr: () => (
+        <div className="my-8">
+            <div className="h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent" />
+        </div>
+    ),
 };
 
 export default mdxComponents;
