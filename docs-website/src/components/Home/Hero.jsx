@@ -3,6 +3,7 @@ import CodeBlock from './CodeBlock';
 import Typewriter from 'typewriter-effect';
 import { useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useRef, useEffect } from 'react';
+import { Link } from 'react-router';
 
 const TypedCodeBlock = () => {
     return (
@@ -133,17 +134,20 @@ const Hero = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.6, duration: 0.8 }}
                             >
-                                <motion.a
+                                <motion.div
                                     whileHover={{ scale: 1.05, translateY: -2 }}
                                     whileTap={{ scale: 0.95 }}
-                                    href="/docs"
-                                    className="relative group px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium transition-all duration-300"
                                 >
-                                    <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 blur-lg opacity-0 group-hover:opacity-50 transition-opacity" />
-                                    <span className="relative">
-                                        ลองใช้งานตอนนี้
-                                    </span>
-                                </motion.a>
+                                    <Link
+                                        to="/docs"
+                                        className="relative group px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium transition-all duration-300"
+                                    >
+                                        <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 blur-lg opacity-0 group-hover:opacity-50 transition-opacity" />
+                                        <span className="relative">
+                                            ลองใช้งานตอนนี้
+                                        </span>
+                                    </Link>
+                                </motion.div>
                             </motion.div>
                         </div>
                     </motion.div>
